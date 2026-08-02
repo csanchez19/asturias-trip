@@ -12,19 +12,20 @@ function loadSet(key: string): Set<number | string> {
   }
 }
 
-function loadBoolean(key: string): boolean {
-  try {
-    return localStorage.getItem(key) === 'true';
-  } catch {
-    return false;
-  }
-}
-
 function hasDevQueryParam(): boolean {
   if (typeof window === 'undefined') {
     return false;
   }
   return new URLSearchParams(window.location.search).get('dev') === '1';
+}
+
+/**
+ * Medianoche en hora de España (CEST, +02:00). Todas las fechas del
+ * itinerario caen en agosto, dentro del horario de verano, por lo que el
+ * offset +02:00 es fijo y no requiere calculo de DST.
+ */
+function spainMidnight(dateStr: string): Date {
+  return new Date(`${dateStr}T00:00:00+02:00`);
 }
 
 @Injectable({ providedIn: 'root' })
@@ -36,7 +37,7 @@ export class TripStore {
   readonly isModalOpen = signal(false);
   readonly visitedDays = signal<Set<number>>(loadSet('visitedDays') as Set<number>);
   readonly foundCows = signal<Set<string>>(loadSet('foundCows') as Set<string>);
-  readonly demoModeUnlockAll = signal(loadBoolean('demoMode') || hasDevQueryParam());
+  readonly devUnlockAll = hasDevQueryParam();
   readonly today = signal(new Date());
 
   readonly selectedDay = computed<ItineraryDay | null>(
@@ -51,7 +52,7 @@ export class TripStore {
         map.set(day.dayNumber, 'locked');
         continue;
       }
-      const dateReached = this.demoModeUnlockAll() || todayValue >= new Date(day.date);
+      const dateReached = this.devUnlockAll || todayValue >= spainMidnight(day.date);
       if (!dateReached) {
         map.set(day.dayNumber, 'locked');
         continue;
@@ -71,9 +72,6 @@ export class TripStore {
     });
     effect(() => {
       localStorage.setItem('foundCows', JSON.stringify([...this.foundCows()]));
-    });
-    effect(() => {
-      localStorage.setItem('demoMode', String(this.demoModeUnlockAll()));
     });
   }
 
@@ -103,9 +101,5 @@ export class TripStore {
 
   markCowFound(id: string): void {
     this.foundCows.update((set) => new Set(set).add(id));
-  }
-
-  toggleDemoMode(): void {
-    this.demoModeUnlockAll.update((value) => !value);
   }
 }
