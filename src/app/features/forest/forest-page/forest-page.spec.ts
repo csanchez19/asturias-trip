@@ -21,7 +21,7 @@ describe('ForestPageComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('El Bosque Encantado');
+    expect(compiled.querySelector('h1')?.textContent).toContain('El Bosc Encantat');
     expect(compiled.querySelectorAll('app-day-node').length).toBe(5);
   });
 });

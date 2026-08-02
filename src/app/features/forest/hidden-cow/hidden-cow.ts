@@ -2,12 +2,12 @@ import { Component, computed, inject, input, signal } from '@angular/core';
 import { TripStore } from '../../../state/trip-store';
 
 const COW_MESSAGES = [
-  'Muuu-agnifico descubrimiento! 🐄',
-  'Esta vaquita tambien quiere bajar el Sella en canoa 🛶',
-  'Las vaquitas de montaña saben donde esta la mejor sidra 🍏',
-  'Cuentan las hadas que esta vaquita se perdio buscando el Lago Ercina 🏔️',
-  'Vaquita encontrada: +1 energia de hada ✨',
-  'Esta vaquita prefiere el Cabo de Peñas al atardecer 🌅',
+  'Muuu-agnífic descobriment! 🐄',
+  'Aquesta vaqueta també vol baixar el Sella en caiac 🛶',
+  'Les vaquetes de muntanya saben on és la millor sidra 🍏',
+  'Diuen les fades que aquesta vaqueta es va perdre buscant el Llac Ercina 🏔️',
+  'Vaqueta trobada: +1 energia de fada ✨',
+  'Aquesta vaqueta prefereix el Cap de Peñas a la posta de sol 🌅',
 ];
 
 let cowInstanceCounter = 0;

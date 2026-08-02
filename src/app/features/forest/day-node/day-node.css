@@ -1,0 +1,13 @@
+.glow-pulse {
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 16px -3px rgba(212, 160, 23, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 32px 4px rgba(212, 160, 23, 0.85);
+  }
+}

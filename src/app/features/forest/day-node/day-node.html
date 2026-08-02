@@ -6,7 +6,7 @@
       ? 'border-earth-700/40 bg-forest-900/40'
       : status() === 'visited'
         ? 'border-forest-400/50 bg-forest-800/70 shadow-[0_0_18px_-4px_rgba(107,179,126,0.55)]'
-        : 'border-mystic-500/60 bg-forest-800/80 shadow-[0_0_22px_-3px_rgba(212,160,23,0.55)]'
+        : 'border-mystic-500/60 bg-forest-800/80 glow-pulse'
   "
   [disabled]="status() === 'locked'"
   [attr.aria-label]="ariaLabel()"
@@ -43,14 +43,12 @@
         >DIA {{ day().dayNumber }}</span
       >
       @if (status() === 'visited') {
-        <span class="text-xs text-forest-300" aria-hidden="true">· visitado ✓</span>
+        <span class="text-xs text-forest-300" aria-hidden="true">· visitat ✓</span>
       }
     </span>
 
     @if (status() === 'locked') {
-      <span class="mt-0.5 block truncate text-sm text-forest-300/80">
-        Portal cubierto de niebla · se abre el {{ unlockDateLabel() }}
-      </span>
+      <span class="mt-0.5 block truncate text-sm text-forest-300/80">S'obre el {{ unlockDateLabel() }}</span>
     } @else {
       <span class="mt-0.5 block truncate font-heading text-base text-mystic-100">{{ day().title }}</span>
       @if (day().subtitle) {

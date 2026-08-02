@@ -13,7 +13,7 @@ export class DayNodeComponent {
   readonly select = output<number>();
 
   protected readonly unlockDateLabel = computed(() =>
-    new Date(this.day().date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }),
+    new Date(this.day().date).toLocaleDateString('ca-ES', { day: 'numeric', month: 'long' }),
   );
 
   protected readonly summaryIcon = computed(() => this.day().activities[0]?.icon ?? '🗺️');
@@ -22,9 +22,9 @@ export class DayNodeComponent {
     const d = this.day();
     switch (this.status()) {
       case 'locked':
-        return `Dia ${d.dayNumber}, bloqueado hasta el ${this.unlockDateLabel()}`;
+        return `Dia ${d.dayNumber}, bloquejat fins al ${this.unlockDateLabel()}`;
       case 'visited':
-        return `Dia ${d.dayNumber}, ${d.title}, ya visitado`;
+        return `Dia ${d.dayNumber}, ${d.title}, ja visitat`;
       default:
         return `Dia ${d.dayNumber}, ${d.title}, disponible`;
     }
