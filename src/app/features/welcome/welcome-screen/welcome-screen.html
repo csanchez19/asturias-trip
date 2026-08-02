@@ -1,0 +1,41 @@
+<div
+  class="welcome-panel fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 px-6 text-center"
+  [class.welcome-leaving]="isLeaving()"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="welcome-title"
+>
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    @for (e of emojis; track e.id) {
+      <span
+        class="welcome-float absolute"
+        [style.top]="e.top"
+        [style.left]="e.left"
+        [style.font-size]="e.size"
+        [style.animation-delay]="e.delay"
+        [style.--float-duration]="e.duration"
+        >{{ e.symbol }}</span
+      >
+    }
+  </div>
+
+  <div class="relative z-10 flex flex-col items-center gap-5">
+    <span class="text-5xl" aria-hidden="true">🧚</span>
+    <h1
+      id="welcome-title"
+      class="font-heading text-2xl leading-snug text-mystic-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
+    >
+      Hola fadeta! Estàs llesta?
+    </h1>
+    <p class="max-w-xs text-sm text-forest-200/80">
+      El bosc t'espera amb boira, llacs i moltes vaquetes de muntanya per trobar.
+    </p>
+    <button
+      type="button"
+      class="mt-2 min-h-11 rounded-full border border-mystic-400/60 bg-gradient-to-br from-mystic-500 to-earth-700 px-8 py-3 font-heading text-base text-forest-950 shadow-[0_0_24px_-4px_rgba(212,160,23,0.7)] active:scale-95"
+      (click)="onReadyClick()"
+    >
+      Estic preparada! 🧚
+    </button>
+  </div>
+</div>

@@ -2,7 +2,11 @@
   class="relative min-h-screen overflow-x-hidden bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 text-forest-100"
 >
   <app-fairy-particles />
-  <div class="relative z-10">
+  <div class="app-shell relative z-10" [class.pre-entry]="!hasEntered()">
     <router-outlet />
   </div>
+
+  @if (!hasEntered()) {
+    <app-welcome-screen (ready)="onReady()" />
+  }
 </div>
