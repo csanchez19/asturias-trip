@@ -20,6 +20,13 @@ function loadBoolean(key: string): boolean {
   }
 }
 
+function hasDevQueryParam(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  return new URLSearchParams(window.location.search).get('dev') === '1';
+}
+
 @Injectable({ providedIn: 'root' })
 export class TripStore {
   private readonly router = inject(Router);
@@ -29,7 +36,7 @@ export class TripStore {
   readonly isModalOpen = signal(false);
   readonly visitedDays = signal<Set<number>>(loadSet('visitedDays') as Set<number>);
   readonly foundCows = signal<Set<string>>(loadSet('foundCows') as Set<string>);
-  readonly demoModeUnlockAll = signal(loadBoolean('demoMode'));
+  readonly demoModeUnlockAll = signal(loadBoolean('demoMode') || hasDevQueryParam());
   readonly today = signal(new Date());
 
   readonly selectedDay = computed<ItineraryDay | null>(
