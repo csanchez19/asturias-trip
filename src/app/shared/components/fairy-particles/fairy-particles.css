@@ -1,0 +1,3 @@
+.particle {
+  animation: float-glow var(--particle-duration, 6s) ease-in-out infinite;
+}

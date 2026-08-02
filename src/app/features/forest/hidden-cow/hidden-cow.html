@@ -1,0 +1,24 @@
+<div class="absolute z-10" [style.top]="top()" [style.left]="left()">
+  <button
+    type="button"
+    class="flex h-11 w-11 items-center justify-center text-xl transition-opacity"
+    [class.opacity-40]="!isFound()"
+    [class.opacity-90]="isFound()"
+    [class.cow-bounce]="isBouncing()"
+    aria-label="Vaquita de montaña escondida"
+    [attr.aria-describedby]="message() ? messageId : null"
+    (click)="onTap()"
+  >
+    <span aria-hidden="true">🐮</span>
+  </button>
+
+  @if (message(); as msg) {
+    <div
+      [id]="messageId"
+      role="status"
+      class="absolute left-1/2 top-full z-20 mt-1 w-32 -translate-x-1/2 rounded-xl border border-mystic-500/40 bg-forest-900/95 px-2.5 py-1.5 text-center text-[11px] leading-snug text-mystic-100 shadow-lg"
+    >
+      {{ msg }}
+    </div>
+  }
+</div>

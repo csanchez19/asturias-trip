@@ -1,0 +1,13 @@
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  @for (particle of particles; track particle.id) {
+    <span
+      class="particle absolute rounded-full bg-mystic-400 shadow-[0_0_8px_2px_rgba(232,197,71,0.65)]"
+      [style.top]="particle.top"
+      [style.left]="particle.left"
+      [style.width]="particle.size"
+      [style.height]="particle.size"
+      [style.animation-delay]="particle.delay"
+      [style.--particle-duration]="particle.duration"
+    ></span>
+  }
+</div>

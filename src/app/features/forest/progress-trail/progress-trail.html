@@ -1,0 +1,22 @@
+<div
+  class="sticky top-0 z-20 border-b border-earth-700/40 bg-forest-950/85 px-4 py-3 backdrop-blur-sm"
+  role="group"
+  aria-label="Progreso del sendero"
+>
+  <div class="flex items-center justify-between gap-3 text-xs font-semibold tracking-wide text-mystic-300">
+    <span>🥾 Sendero completado</span>
+    <span>{{ store.progressPercent() }}%</span>
+  </div>
+  <div
+    class="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-forest-900"
+    role="progressbar"
+    [attr.aria-valuenow]="store.progressPercent()"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <div
+      class="h-full rounded-full bg-gradient-to-r from-forest-600 via-mystic-500 to-mystic-400 transition-all duration-500 ease-out"
+      [style.width.%]="store.progressPercent()"
+    ></div>
+  </div>
+</div>

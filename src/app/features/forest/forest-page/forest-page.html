@@ -1,0 +1,48 @@
+<div class="relative min-h-screen pb-16">
+  <header class="relative px-4 pb-3 pt-6 text-center">
+    <button
+      type="button"
+      class="absolute right-3 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-mystic-500/30 bg-forest-900/70 text-lg"
+      [attr.aria-pressed]="store.demoModeUnlockAll()"
+      [attr.aria-label]="
+        store.demoModeUnlockAll()
+          ? 'Modo hada activado: todos los dias desbloqueados. Tocar para desactivar.'
+          : 'Activar modo hada para desbloquear todos los dias'
+      "
+      [title]="store.demoModeUnlockAll() ? 'Modo hada: ON' : 'Modo hada'"
+      (click)="store.toggleDemoMode()"
+    >
+      <span aria-hidden="true">{{ store.demoModeUnlockAll() ? '🔓' : '🔮' }}</span>
+    </button>
+
+    <h1 class="font-heading text-2xl text-mystic-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+      El Bosque Encantado
+    </h1>
+    <p class="mt-1 text-xs tracking-wide text-forest-200/70">Asturias en camper · 3-7 agosto 2026</p>
+  </header>
+
+  <app-progress-trail />
+
+  <main class="relative mx-auto max-w-lg px-4 py-8">
+    <div
+      class="pointer-events-none absolute inset-y-4 left-11 w-px bg-gradient-to-b from-transparent via-earth-500/40 to-transparent"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative flex flex-col gap-6">
+      @for (day of store.days(); track day.dayNumber) {
+        <app-day-node
+          [day]="day"
+          [status]="store.dayStatuses().get(day.dayNumber) ?? 'locked'"
+          (select)="onSelectDay($event)"
+        />
+      }
+    </div>
+
+    @for (spot of cowSpots; track spot.id) {
+      <app-hidden-cow [cowId]="spot.id" [top]="spot.top" [left]="spot.left" />
+    }
+  </main>
+</div>
+
+<app-fairy-diary-modal />

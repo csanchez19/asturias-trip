@@ -1,0 +1,65 @@
+<button
+  type="button"
+  class="group relative flex w-full min-h-11 items-center gap-4 rounded-3xl border p-4 text-left transition active:scale-[0.98] disabled:active:scale-100"
+  [class]="
+    status() === 'locked'
+      ? 'border-earth-700/40 bg-forest-900/40'
+      : status() === 'visited'
+        ? 'border-forest-400/50 bg-forest-800/70 shadow-[0_0_18px_-4px_rgba(107,179,126,0.55)]'
+        : 'border-mystic-500/60 bg-forest-800/80 shadow-[0_0_22px_-3px_rgba(212,160,23,0.55)]'
+  "
+  [disabled]="status() === 'locked'"
+  [attr.aria-label]="ariaLabel()"
+  (click)="onActivate()"
+>
+  <span
+    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-2xl"
+    [class]="
+      status() === 'locked'
+        ? 'bg-forest-950 text-forest-400/60'
+        : 'bg-gradient-to-br from-mystic-500 to-earth-700 text-forest-950'
+    "
+    aria-hidden="true"
+  >
+    @switch (status()) {
+      @case ('locked') {
+        🌫️
+      }
+      @case ('visited') {
+        {{ summaryIcon() }}
+      }
+      @default {
+        ✨
+      }
+    }
+  </span>
+
+  <span class="min-w-0 flex-1">
+    <span class="flex items-center gap-2">
+      <span
+        class="font-heading text-xs tracking-widest"
+        [class.text-mystic-400]="status() !== 'locked'"
+        [class.text-forest-400]="status() === 'locked'"
+        >DIA {{ day().dayNumber }}</span
+      >
+      @if (status() === 'visited') {
+        <span class="text-xs text-forest-300" aria-hidden="true">· visitado ✓</span>
+      }
+    </span>
+
+    @if (status() === 'locked') {
+      <span class="mt-0.5 block truncate text-sm text-forest-300/80">
+        Portal cubierto de niebla · se abre el {{ unlockDateLabel() }}
+      </span>
+    } @else {
+      <span class="mt-0.5 block truncate font-heading text-base text-mystic-100">{{ day().title }}</span>
+      @if (day().subtitle) {
+        <span class="mt-0.5 block truncate text-xs text-forest-200/70">{{ day().subtitle }}</span>
+      }
+    }
+  </span>
+
+  @if (status() === 'locked') {
+    <span class="shrink-0 text-lg" aria-hidden="true">🍄</span>
+  }
+</button>
